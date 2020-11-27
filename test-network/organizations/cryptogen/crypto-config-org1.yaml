@@ -47,7 +47,7 @@ PeerOrgs:
     # name collisions
     # ---------------------------------------------------------------------------
     Template:  # Key 몇 개 만들거냐
-      Count: 2
+      Count: 1
       SANS:
         - localhost
       # Start: 5
