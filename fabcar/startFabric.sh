@@ -22,7 +22,7 @@ rm -rf go/wallet/*
 # launch network; create channel and join peer to channel
 pushd ../test-network
 ./network.sh down
-./network.sh up createChannel -s couchdb
+./network.sh up createChannel -ca -s couchdb
 # deploy chaincode 1
 CC_SRC_PATH="../chaincode/fabcar/go/"
 CC_NAME="fabcar"
