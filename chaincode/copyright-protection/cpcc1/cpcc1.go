@@ -7,29 +7,26 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 	"strconv"
 
-	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
-type ServerConfig struct {
-	CCID    string
-	Address string
-}
-
-// SmartContract provides functions for managing a car
+// SmartContract provides functions for managing copyrights
 type SmartContract struct {
 	contractapi.Contract
 }
 
-// Car describes basic details of what makes up a car
-type Car struct {
-	Make   string `json:"make"`
-	Model  string `json:"model"`
-	Colour string `json:"colour"`
-	Owner  string `json:"owner"`
+// 신고 데이터
+type Report struct {
+	URL        string `json:"url"`
+	Site       string `json:"site"`       // 복제된 저작물이 게시된 사이트 이름
+	Content    string `json:"content"`    // 저작물 이름
+	Author     string `json:"author"`     // 원 저작자 이름
+	Pirate     string `json:"pirate"`     // 저작권 침해자 이름
+	Type       string `json:"type"`       // 저작물 유형
+	ReporterID string `json:"reporterID"` // 신고자 ID
+	Date       string `json:"date"`       // 신고 날짜
 }
 
 // QueryResult structure used for handling result of query
@@ -144,11 +141,6 @@ func (s *SmartContract) ChangeCarOwner(ctx contractapi.TransactionContextInterfa
 }
 
 func main() {
-	// See chaincode.env.example
-	config := ServerConfig{
-		CCID:    os.Getenv("CHAINCODE_ID"),
-		Address: os.Getenv("CHAINCODE_SERVER_ADDRESS"),
-	}
 
 	chaincode, err := contractapi.NewChaincode(new(SmartContract))
 
@@ -157,16 +149,7 @@ func main() {
 		return
 	}
 
-	server := &shim.ChaincodeServer{
-		CCID:    config.CCID,
-		Address: config.Address,
-		CC:      chaincode,
-		TLSProps: shim.TLSProperties{
-			Disabled: true,
-		},
-	}
-
-	if err := server.Start(); err != nil {
+	if err := chaincode.Start(); err != nil {
 		fmt.Printf("Error starting fabcar chaincode: %s", err.Error())
 	}
 }

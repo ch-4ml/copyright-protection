@@ -1,16 +1,20 @@
 /*
+ * Copyright IBM Corp. All Rights Reserved.
+ *
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as FabricCAServices from 'fabric-ca-client';
-import { Wallets, X509Identity } from 'fabric-network';
-import * as fs from 'fs';
-import * as path from 'path';
+'use strict';
+
+const FabricCAServices = require('fabric-ca-client');
+const { Wallets } = require('fabric-network');
+const fs = require('fs');
+const path = require('path');
 
 async function main() {
     try {
         // load the network configuration
-        const ccpPath = path.resolve(__dirname, '..', '..', '..','test-network','organizations','peerOrganizations','org1.example.com', 'connection-org1.json');
+        const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
         // Create a new CA client for interacting with the CA.
@@ -32,7 +36,7 @@ async function main() {
 
         // Enroll the admin user, and import the new identity into the wallet.
         const enrollment = await ca.enroll({ enrollmentID: 'admin', enrollmentSecret: 'adminpw' });
-        const x509Identity: X509Identity = {
+        const x509Identity = {
             credentials: {
                 certificate: enrollment.certificate,
                 privateKey: enrollment.key.toBytes(),
