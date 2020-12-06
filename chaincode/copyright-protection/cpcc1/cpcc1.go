@@ -2,6 +2,12 @@
 SPDX-License-Identifier: Apache-2.0
 */
 
+/*
+
+한국저작권보호원 - 한국저작권위원회
+
+*/
+
 package main
 
 import (
@@ -19,20 +25,28 @@ type SmartContract struct {
 
 // 신고 데이터
 type Report struct {
-	URL        string `json:"url"`
-	Site       string `json:"site"`       // 복제된 저작물이 게시된 사이트 이름
-	Content    string `json:"content"`    // 저작물 이름
-	Author     string `json:"author"`     // 원 저작자 이름
-	Pirate     string `json:"pirate"`     // 저작권 침해자 이름
-	Type       string `json:"type"`       // 저작물 유형
-	ReporterID string `json:"reporterID"` // 신고자 ID
-	Date       string `json:"date"`       // 신고 날짜
+	ObjectType    string `json:"docType"`
+	ID            string `json:"id"`            // 신고 ID
+	URL           string `json:"url"`           // 복제된 저작물이 게시된 사이트 URL
+	Site          string `json:"site"`          // 복제된 저작물이 게시된 사이트 이름
+	CopyrightID   string `json:"copyrightID`    // 등록된 저작물 ID
+	Title         string `json:"title"`         // 저작물 이름
+	Type          string `json:"type"`          // 저작물 유형
+	Author        string `json:"author"`        // 원 저작자 이름
+	Pirate        string `json:"pirate"`        // 저작물 게시자
+	ReporterEmail string `json:"reporterEmail"` // 신고자 Email
+	Date          string `json:"date"`          // 신고 날짜
+	Form          string `json:"form"`          // 복제 형태
+	Similarity    string `json:"similarity"`    // 유사도(낮거나 측정할 수 없는 경우 사람이 판별)
 }
 
-// QueryResult structure used for handling result of query
-type QueryResult struct {
-	Key    string `json:"Key"`
-	Record *Car
+// 저작권 데이터
+type Copyright struct {
+	ObjectType string `json:"docType"`
+	ID         string `json:"id"`     // 등록된 저작물 ID
+	Title      string `json:"title"`  // 저작물 이름
+	Type       string `json:"type"`   // 저작물 유형
+	Author     string `json:"author"` // 원 저작자 이름
 }
 
 // InitLedger adds a base set of cars to the ledger
