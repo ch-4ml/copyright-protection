@@ -14,10 +14,9 @@ CC_SRC_LANGUAGE=${1:-"go"}
 CC_SRC_LANGUAGE=`echo "$CC_SRC_LANGUAGE" | tr [:upper:] [:lower:]`
 
 # clean out any old identites in the wallets
-rm -rf javascript/wallet/*
-rm -rf java/wallet/*
-rm -rf typescript/wallet/*
-rm -rf go/wallet/*
+rm -rf app1/wallet/*
+rm -rf app2/wallet/*
+rm -rf app3/wallet/*
 
 # launch network; create channel and join peer to channel
 pushd ../test-network

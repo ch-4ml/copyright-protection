@@ -13,7 +13,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"strconv"
 
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
@@ -23,104 +22,88 @@ type SmartContract struct {
 	contractapi.Contract
 }
 
+// 저작권 데이터
+type Copyright struct {
+	ObjectType  string `json:"docType"`
+	ID          string `json:"id"`          // 등록된 저작물 ID
+	Title       string `json:"title"`       // 저작물 이름
+	ContentType string `json:"contentType"` // 저작물 유형
+	Author      string `json:"author"`      // 원 저작자 이름
+}
+
+// 저작권 조회용 데이터
+type CopyrightQueryResult struct {
+	Key    string `json:"Key"`
+	Record *Copyright
+}
+
 // 신고 데이터
 type Report struct {
 	ObjectType    string `json:"docType"`
 	ID            string `json:"id"`            // 신고 ID
 	URL           string `json:"url"`           // 복제된 저작물이 게시된 사이트 URL
 	Site          string `json:"site"`          // 복제된 저작물이 게시된 사이트 이름
-	CopyrightID   string `json:"copyrightID`    // 등록된 저작물 ID
-	Title         string `json:"title"`         // 저작물 이름
-	Type          string `json:"type"`          // 저작물 유형
-	Author        string `json:"author"`        // 원 저작자 이름
+	CopyrightID   string `json:"copyrightID"`   // 등록된 저작물 ID
 	Pirate        string `json:"pirate"`        // 저작물 게시자
 	ReporterEmail string `json:"reporterEmail"` // 신고자 Email
 	Date          string `json:"date"`          // 신고 날짜
-	Form          string `json:"form"`          // 복제 형태
+	Form          string `json:"form"`          // 침해 형태
 	Similarity    string `json:"similarity"`    // 유사도(낮거나 측정할 수 없는 경우 사람이 판별)
+	IsPirated     string `json:"isPirated"`     // 침해 여부(pending, false, true)
 }
 
-// 저작권 데이터
-type Copyright struct {
-	ObjectType string `json:"docType"`
-	ID         string `json:"id"`     // 등록된 저작물 ID
-	Title      string `json:"title"`  // 저작물 이름
-	Type       string `json:"type"`   // 저작물 유형
-	Author     string `json:"author"` // 원 저작자 이름
+// 신고 조회용 데이터
+type ReportQueryResult struct {
+	Key    string `json:"Key"`
+	Record *Report
 }
 
-// InitLedger adds a base set of cars to the ledger
-func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) error {
-	cars := []Car{
-		Car{Make: "Toyota", Model: "Prius", Colour: "blue", Owner: "Tomoko"},
-		Car{Make: "Ford", Model: "Mustang", Colour: "red", Owner: "Brad"},
-		Car{Make: "Hyundai", Model: "Tucson", Colour: "green", Owner: "Jin Soo"},
-		Car{Make: "Volkswagen", Model: "Passat", Colour: "yellow", Owner: "Max"},
-		Car{Make: "Tesla", Model: "S", Colour: "black", Owner: "Adriana"},
-		Car{Make: "Peugeot", Model: "205", Colour: "purple", Owner: "Michel"},
-		Car{Make: "Chery", Model: "S22L", Colour: "white", Owner: "Aarav"},
-		Car{Make: "Fiat", Model: "Punto", Colour: "violet", Owner: "Pari"},
-		Car{Make: "Tata", Model: "Nano", Colour: "indigo", Owner: "Valeria"},
-		Car{Make: "Holden", Model: "Barina", Colour: "brown", Owner: "Shotaro"},
+/* -------------------------- function -------------------------- */
+
+// 저작권 데이터 등록
+func (s *SmartContract) RegistCopyright(ctx contractapi.TransactionContextInterface,
+	copyrightNo string, title string, contentType string, author string) error {
+	var err error
+
+	objectType := "copyright"
+	key := objectType + copyrightNo
+
+	copyright := Copyright{
+		ObjectType:  objectType,
+		ID:          key,
+		Title:       title,
+		ContentType: contentType,
+		Author:      author,
 	}
 
-	for i, car := range cars {
-		carAsBytes, _ := json.Marshal(car)
-		err := ctx.GetStub().PutState("CAR"+strconv.Itoa(i), carAsBytes)
+	copyrightAsBytes, _ := json.Marshal(copyright)
 
-		if err != nil {
-			return fmt.Errorf("Failed to put to world state. %s", err.Error())
-		}
-	}
-
-	return nil
-}
-
-// CreateCar adds a new car to the world state with given details
-func (s *SmartContract) CreateCar(ctx contractapi.TransactionContextInterface, carNumber string, make string, model string, colour string, owner string) error {
-	car := Car{
-		Make:   make,
-		Model:  model,
-		Colour: colour,
-		Owner:  owner,
-	}
-
-	carAsBytes, _ := json.Marshal(car)
-
-	return ctx.GetStub().PutState(carNumber, carAsBytes)
-}
-
-// QueryCar returns the car stored in the world state with given id
-func (s *SmartContract) QueryCar(ctx contractapi.TransactionContextInterface, carNumber string) (*Car, error) {
-	carAsBytes, err := ctx.GetStub().GetState(carNumber)
-
+	err = ctx.GetStub().PutState(key, copyrightAsBytes)
 	if err != nil {
-		return nil, fmt.Errorf("Failed to read from world state. %s", err.Error())
+		return fmt.Errorf("Failed to put to world state. %s", err.Error())
 	}
 
-	if carAsBytes == nil {
-		return nil, fmt.Errorf("%s does not exist", carNumber)
+	index := "author~id"
+	authorIDIndexKey, err := ctx.GetStub().CreateCompositeKey(index, []string{copyright.Author, copyright.ID})
+	if err != nil {
+		return fmt.Errorf("Failed to create composite key. %s", err.Error())
 	}
 
-	car := new(Car)
-	_ = json.Unmarshal(carAsBytes, car)
-
-	return car, nil
+	value := []byte{0x00}
+	return ctx.GetStub().PutState(authorIDIndexKey, value)
 }
 
-// QueryAllCars returns all cars found in world state
-func (s *SmartContract) QueryAllCars(ctx contractapi.TransactionContextInterface) ([]QueryResult, error) {
-	startKey := ""
-	endKey := ""
+// 모든 저작권 데이터 조회
+func (s *SmartContract) QueryAllCopyrights(ctx contractapi.TransactionContextInterface) ([]CopyrightQueryResult, error) {
 
-	resultsIterator, err := ctx.GetStub().GetStateByRange(startKey, endKey)
-
+	queryString := fmt.Sprintf("{\"selector\":{\"docType\":\"copyright\"}}")
+	resultsIterator, err := ctx.GetStub().GetQueryResult(queryString)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to get all copyrights data from world state. %s", err.Error())
 	}
 	defer resultsIterator.Close()
 
-	results := []QueryResult{}
+	results := []CopyrightQueryResult{}
 
 	for resultsIterator.HasNext() {
 		queryResponse, err := resultsIterator.Next()
@@ -129,29 +112,168 @@ func (s *SmartContract) QueryAllCars(ctx contractapi.TransactionContextInterface
 			return nil, err
 		}
 
-		car := new(Car)
-		_ = json.Unmarshal(queryResponse.Value, car)
+		copyright := new(Copyright)
+		_ = json.Unmarshal(queryResponse.Value, copyright)
 
-		queryResult := QueryResult{Key: queryResponse.Key, Record: car}
+		queryResult := CopyrightQueryResult{Key: queryResponse.Key, Record: copyright}
 		results = append(results, queryResult)
 	}
 
 	return results, nil
 }
 
-// ChangeCarOwner updates the owner field of car with given id in world state
-func (s *SmartContract) ChangeCarOwner(ctx contractapi.TransactionContextInterface, carNumber string, newOwner string) error {
-	car, err := s.QueryCar(ctx, carNumber)
+// 원작자로 데이터 조회
+func (s *SmartContract) QueryCopyrightsByAuthor(ctx contractapi.TransactionContextInterface, author string) ([]CopyrightQueryResult, error) {
+
+	queryString := fmt.Sprintf("{\"selector\":{\"docType\":\"copyright\", \"author\":\"%s\"}}", author)
+	resultsIterator, err := ctx.GetStub().GetQueryResult(queryString)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to get all copyrights data from world state. %s", err.Error())
+	}
+	defer resultsIterator.Close()
+
+	results := []CopyrightQueryResult{}
+
+	for resultsIterator.HasNext() {
+		queryResponse, err := resultsIterator.Next()
+
+		if err != nil {
+			return nil, err
+		}
+
+		copyright := new(Copyright)
+		_ = json.Unmarshal(queryResponse.Value, copyright)
+
+		queryResult := CopyrightQueryResult{Key: queryResponse.Key, Record: copyright}
+		results = append(results, queryResult)
+	}
+
+	return results, nil
+}
+
+// 신고정보 조회
+func (s *SmartContract) QueryCopyright(ctx contractapi.TransactionContextInterface, copyrightNo string) (*Copyright, error) {
+
+	objectType := "copyright"
+	key := objectType + copyrightNo
+
+	copyrightAsBytes, err := ctx.GetStub().GetState(key)
+
+	if err != nil {
+		return nil, fmt.Errorf("Failed to read from world state. %s", err.Error())
+	}
+
+	if copyrightAsBytes == nil {
+		return nil, fmt.Errorf("%s does not exist", key)
+	}
+
+	copyright := new(Copyright)
+	_ = json.Unmarshal(copyrightAsBytes, copyright)
+
+	return copyright, nil
+}
+
+// --------------------------
+
+// 저작권 침해 신고 정보 등록
+func (s *SmartContract) CreateReport(ctx contractapi.TransactionContextInterface,
+	reportNo string, url string, site string, copyrightNo string, pirate string,
+	reporterEmail string, date string, form string, similarity string, isPirated string) error {
+	var err error
+
+	reportID := "report" + reportNo
+	copyrightID := "copyright" + copyrightNo
+
+	report := Report{
+		ObjectType:    "report",
+		ID:            reportID,
+		URL:           url,
+		Site:          site,
+		CopyrightID:   copyrightID,
+		Pirate:        pirate,
+		ReporterEmail: reporterEmail,
+		Date:          date,
+		Form:          form,
+		Similarity:    similarity,
+		IsPirated:     isPirated,
+	}
+
+	reportAsBytes, _ := json.Marshal(report)
+	err = ctx.GetStub().PutState(reportID, reportAsBytes)
+	if err != nil {
+		return fmt.Errorf("Failed to put to world state. %s", err.Error())
+	}
+
+	index := "copyrightid~id"
+	copyrightIDIndexKey, err := ctx.GetStub().CreateCompositeKey(index, []string{report.CopyrightID, report.ID})
+	if err != nil {
+		return fmt.Errorf("Failed to create composite key. %s", err.Error())
+	}
+
+	value := []byte{0x00}
+	return ctx.GetStub().PutState(copyrightIDIndexKey, value)
+}
+
+// 모든 신고정보 조회
+func (s *SmartContract) QueryAllReports(ctx contractapi.TransactionContextInterface) ([]ReportQueryResult, error) {
+
+	queryString := fmt.Sprintf("{\"selector\":{\"docType\":\"report\"}}")
+	resultsIterator, err := ctx.GetStub().GetQueryResult(queryString)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to get all reports data from world state. %s", err.Error())
+	}
+	defer resultsIterator.Close()
+
+	results := []ReportQueryResult{}
+
+	for resultsIterator.HasNext() {
+		queryResponse, err := resultsIterator.Next()
+
+		if err != nil {
+			return nil, err
+		}
+
+		report := new(Report)
+		_ = json.Unmarshal(queryResponse.Value, report)
+
+		queryResult := ReportQueryResult{Key: queryResponse.Key, Record: report}
+		results = append(results, queryResult)
+	}
+
+	return results, nil
+}
+
+// 신고정보 조회
+func (s *SmartContract) QueryReport(ctx contractapi.TransactionContextInterface, id string) (*Report, error) {
+	reportAsBytes, err := ctx.GetStub().GetState(id)
+
+	if err != nil {
+		return nil, fmt.Errorf("Failed to read from world state. %s", err.Error())
+	}
+
+	if reportAsBytes == nil {
+		return nil, fmt.Errorf("%s does not exist", id)
+	}
+
+	report := new(Report)
+	_ = json.Unmarshal(reportAsBytes, report)
+
+	return report, nil
+}
+
+// 신고 - 침해여부 변경
+func (s *SmartContract) ChangeReportIsPirated(ctx contractapi.TransactionContextInterface, reportID string, isPirated string) error {
+	report, err := s.QueryReport(ctx, reportID)
 
 	if err != nil {
 		return err
 	}
 
-	car.Owner = newOwner
+	report.IsPirated = isPirated
 
-	carAsBytes, _ := json.Marshal(car)
+	reportAsBytes, _ := json.Marshal(report)
 
-	return ctx.GetStub().PutState(carNumber, carAsBytes)
+	return ctx.GetStub().PutState(reportID, reportAsBytes)
 }
 
 func main() {

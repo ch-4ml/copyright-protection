@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Freelancer - Fabcar Tutorials Theme</title>
+  <title>Copyright Protection - 한국저작권보호원 </title>
   <!-- Favicon-->
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
   <!-- Font Awesome icons (free version)-->
@@ -23,7 +23,7 @@
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Fabcar Tutorials</a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Copyright Protection</a>
       <button
         class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded"
         type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
@@ -33,9 +33,14 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <!-- <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Portfolio</a></li>
-            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">About</a></li>
-            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li> -->
+          <!-- <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Portfolio</a></li> -->
+            <% if (account === 'admin') { %>
+              <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/logout">Logout</a></li>
+            <% } else { %>
+              <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="modal" data-target="#loginModal">Login</a></li>
+            <% } %>
+            
+            <!-- <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li> -->
         </ul>
       </div>
     </div>
@@ -46,7 +51,7 @@
       <!-- Masthead Avatar Image-->
       <img class="masthead-avatar mb-5" src="/images/avataaars.svg" alt="" />
       <!-- Masthead Heading-->
-      <h1 class="masthead-heading text-uppercase mb-0">Fabcar Tutorials</h1>
+      <h1 class="masthead-heading text-uppercase mb-0">Copyright Protection</h1>
       <!-- Icon Divider-->
       <div class="divider-custom divider-light">
         <div class="divider-custom-line"></div>
@@ -54,14 +59,14 @@
         <div class="divider-custom-line"></div>
       </div>
       <!-- Masthead Subheading-->
-      <p class="masthead-subheading font-weight-light mb-0">Enjoy Your Hyperledger Fabric Projects!!</p>
+      <p class="masthead-subheading font-weight-light mb-0">한국저작권보호원 앱</p>
     </div>
   </header>
   <!-- Portfolio Section-->
   <section class="page-section portfolio" id="portfolio">
     <div class="container">
       <!-- Portfolio Section Heading-->
-      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Try it yourself</h2>
+      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Functions</h2>
       <!-- Icon Divider-->
       <div class="divider-custom">
         <div class="divider-custom-line"></div>
@@ -72,30 +77,30 @@
       <div class="row justify-content-center">
         <!-- Portfolio Item 1-->
         <div class="col-md-6 col-lg-6 mb-5">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+          <div class="portfolio-item mx-auto" id="btnQueryAllReports" data-toggle="modal" data-target="#queryAllReports">
             <div
               class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">Query All Cars</div>
+              <div class="portfolio-item-caption-content text-center text-white">신고 내역 전체 조회</div>
             </div>
             <img class="img-fluid" src="/images/portfolio/cabin.png" alt="" />
           </div>
         </div>
         <!-- Portfolio Item 2-->
         <div class="col-md-6 col-lg-6 mb-5">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
+          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#queryReport">
             <div
               class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">Query Car</div>
+              <div class="portfolio-item-caption-content text-center text-white">Query Report</div>
             </div>
             <img class="img-fluid" src="/images/portfolio/cake.png" alt="" />
           </div>
         </div>
         <!-- Portfolio Item 3-->
         <div class="col-md-6 col-lg-6 mb-5">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
+          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#createReport">
             <div
               class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">Create Car</div>
+              <div class="portfolio-item-caption-content text-center text-white">저작권 침해 신고</div>
             </div>
             <img class="img-fluid" src="/images/portfolio/circus.png" alt="" />
           </div>
@@ -105,7 +110,7 @@
           <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
             <div
               class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">Change Car Owner</div>
+              <div class="portfolio-item-caption-content text-center text-white">Change Report Pirate</div>
             </div>
             <img class="img-fluid" src="/images/portfolio/game.png" alt="" />
           </div>
@@ -125,8 +130,8 @@
   </div>
   <!-- Portfolio Modals-->
   <!-- Portfolio Modal 1-->
-  <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog"
-    aria-labelledby="portfolioModal1Label" aria-hidden="true">
+  <div class="portfolio-modal modal fade" id="queryAllReports" tabindex="-1" role="dialog"
+    aria-labelledby="queryAllReportsLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -135,23 +140,20 @@
         <div class="modal-body text-center">
           <div class="container">
             <div class="row justify-content-center">
-              <div class="col-lg-8">
+              <div class="col-lg-12">
                 <!-- Portfolio Modal - Title-->
                 <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"
-                  id="portfolioModal1Label">Query All Cars</h2>
+                  id="queryAllReportsLabel">모든 신고내역 조회</h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
                   <div class="divider-custom-line"></div>
                   <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                   <div class="divider-custom-line"></div>
                 </div>
-                <!-- Query All Cars Button -->
-                <div class="form-group text-center">
-                  <button class="btn btn-primary btn-xl" id="btnQueryAllCars">Query All Cars</button>
-                </div>
+
                 <!-- Result Area -->
                 <div class="text-center">
-                  <p id="resultQueryAllCars"></p>
+                  <p id="result"></p>
                 </div>
                 <button class="btn btn-primary" data-dismiss="modal">
                   <i class="fas fa-times fa-fw"></i>
@@ -165,8 +167,8 @@
     </div>
   </div>
   <!-- Portfolio Modal 2-->
-  <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog"
-    aria-labelledby="portfolioModal2Label" aria-hidden="true">
+  <div class="portfolio-modal modal fade" id="queryReport" tabindex="-1" role="dialog"
+    aria-labelledby="queryReportLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -178,29 +180,29 @@
               <div class="col-lg-8">
                 <!-- Portfolio Modal - Title-->
                 <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"
-                  id="portfolioModal2Label">Query Car</h2>
+                  id="queryReportLabel">신고 데이터 조회</h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
                   <div class="divider-custom-line"></div>
                   <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                   <div class="divider-custom-line"></div>
                 </div>
-                <!-- Query Car InputBox, Button -->
+                <!-- Query Report InputBox, Button -->
                 <div class="control-group text-center">
                   <div class="form-group floating-label-form-group controls mb-5 pb-2">
-                    <label>Car Number</label>
-                    <input class="form-control text-center" id="txtCarNoQueryCar" type="text"
-                      placeholder="Car Number" required="required"
-                      data-validation-required-message="Please enter car number." />
+                    <label>신고 번호</label>
+                    <input class="form-control text-center" id="txtReportNo" type="text"
+                      placeholder="Report Number" required="required"
+                      data-validation-required-message="Please enter report number." />
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn-primary btn-xl" id="btnQueryCar">Query Car</button>
+                  <button class="btn btn-primary btn-xl" id="btnQuery">조회</button>
                 </div>
                 <!-- Result Area -->
                 <div class="text-center">
-                  <p id="resultQueryCar"></p>
+                  <p id="result"></p>
                 </div>
                 <button class="btn btn-primary" data-dismiss="modal">
                   <i class="fas fa-times fa-fw"></i>
@@ -214,8 +216,8 @@
     </div>
   </div>
   <!-- Portfolio Modal 3-->
-  <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog"
-    aria-labelledby="portfolioModal3Label" aria-hidden="true">
+  <div class="portfolio-modal modal fade" id="createReport" tabindex="-1" role="dialog"
+    aria-labelledby="createReportLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -227,70 +229,86 @@
               <div class="col-lg-8">
                 <!-- Portfolio Modal - Title-->
                 <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"
-                  id="portfolioModal3Label">Create Car</h2>
+                  id="createReportLabel">저작권 침해 신고</h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
                   <div class="divider-custom-line"></div>
                   <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                   <div class="divider-custom-line"></div>
                 </div>
-                <!-- Create Car InputBox, Button -->
-                <div class="control-group text-center">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Car Number</label>
-                    <input class="form-control text-center" id="txtCarNoCreateCar" type="text"
-                      placeholder="Car Number" required="required"
-                      data-validation-required-message="Please enter car number." />
-                    <p class="help-block text-danger"></p>
+                <!-- Create Report InputBox, Button -->
+                <div class="row">
+                  <div class="control-group text-center col-6">
+                    <div class="form-group floating-label-form-group controls mb-2 pb-2">
+                      <label>신고 번호</label>
+                      <input class="form-control text-center" id="txtReportNo" type="text"
+                        placeholder="신고 번호" required="required"
+                        data-validation-required-message="신고 번호를 입력해주세요." />
+                      <p class="help-block text-danger"></p>
+                    </div>
                   </div>
-                </div>
-                <div class="control-group text-center">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Make</label>
-                    <input class="form-control text-center" id="txtMakeCreateCar" type="text"
-                      placeholder="Make" required="required"
-                      data-validation-required-message="Please enter car maker." />
-                    <p class="help-block text-danger"></p>
+                  <div class="control-group text-center col-6">
+                    <div class="form-group floating-label-form-group controls mb-2 pb-2">
+                      <label>URL</label>
+                      <input class="form-control text-center" id="txtURL" type="text"
+                        placeholder="URL" required="required"
+                        data-validation-required-message="웹사이트 URL을 입력해주세요." />
+                      <p class="help-block text-danger"></p>
+                    </div>
                   </div>
-                </div>
-                <div class="control-group text-center">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Model</label>
-                    <input class="form-control text-center" id="txtModelCreateCar" type="text"
-                      placeholder="Model" required="required"
-                      data-validation-required-message="Please enter car model." />
-                    <p class="help-block text-danger"></p>
+                  <div class="control-group text-center col-6">
+                    <div class="form-group floating-label-form-group controls mb-2 pb-2">
+                      <label>웹사이트 이름</label>
+                      <input class="form-control text-center" id="txtSite" type="text"
+                        placeholder="웹사이트 이름" required="required"
+                        data-validation-required-message="웹사이트 이름을 입력해주세요." />
+                      <p class="help-block text-danger"></p>
+                    </div>
                   </div>
-                </div>
-                <div class="control-group text-center">
-                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Colour</label>
-                    <input class="form-control text-center" id="txtColourCreateCar" type="text"
-                      placeholder="Colour" required="required"
-                      data-validation-required-message="Please enter car colour." />
-                    <p class="help-block text-danger"></p>
+                  <div class="control-group text-center col-6">
+                    <div class="form-group floating-label-form-group controls mb-2 pb-2">
+                      <label>저작권 번호</label>
+                      <input class="form-control text-center" id="txtCopyrightNo" type="text"
+                        placeholder="저작권 번호" required="required"
+                        data-validation-required-message="저작권을 선택해주세요." />
+                      <p class="help-block text-danger"></p>
+                    </div>
                   </div>
-                </div>
-                <div class="control-group text-center">
-                  <div class="form-group floating-label-form-group controls mb-5 pb-2">
-                    <label>Owner</label>
-                    <input class="form-control text-center" id="txtOwnerCreateCar" type="text"
-                      placeholder="Owner" required="required"
-                      data-validation-required-message="Please enter car owner." />
-                    <p class="help-block text-danger"></p>
+                  <div class="control-group text-center col-6">
+                    <div class="form-group floating-label-form-group controls mb-2 pb-2">
+                      <label>업로드한 유저 정보</label>
+                      <input class="form-control text-center" id="txtPirate" type="text"
+                        placeholder="업로드한 유저 정보" required="required"
+                        data-validation-required-message="침해된 저작물을 업로드한 유저의 정보를 입력해주세요. (아이디, 닉네임 등)" />
+                      <p class="help-block text-danger"></p>
+                    </div>
+                  </div>
+                  <div class="control-group text-center col-6">
+                    <div class="form-group floating-label-form-group controls mb-2 pb-2">
+                      <label>저작권 침해 형태</label>
+                      <input class="form-control text-center" id="txtForm" type="text"
+                        placeholder="저작권 침해 형태" required="required"
+                        data-validation-required-message="저작권 침해 형태를 입력해주세요." />
+                      <p class="help-block text-danger"></p>
+                    </div>
+                  </div>
+                  <div class="control-group text-center col-12 mb-5">
+                    <div class="form-group floating-label-form-group controls mb-2 pb-2">
+                      <label>신고자 이메일</label>
+                      <input class="form-control text-center" id="txtEmail" type="email"
+                        placeholder="신고자 이메일" required="required"
+                        data-validation-required-message="신고자 이메일을 입력해주세요." />
+                      <p class="help-block text-danger"></p>
+                    </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn-primary btn-xl" id="btnCreateCar">Create Car</button>
+                  <button class="btn btn-primary btn-xl" id="btnCreate">신고하기</button>
                 </div>
                 <!-- Result Area -->
                 <div class="text-center">
-                  <p id="resultCreateCar"></p>
+                  <p id="result"></p>
                 </div>
-                <button class="btn btn-primary" data-dismiss="modal">
-                  <i class="fas fa-times fa-fw"></i>
-                  Close Window
-                </button>
               </div>
             </div>
           </div>
@@ -312,39 +330,39 @@
               <div class="col-lg-8">
                 <!-- Portfolio Modal - Title-->
                 <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"
-                  id="portfolioModal4Label">Change Car Owner</h2>
+                  id="portfolioModal4Label">Change Report Pirate</h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
                   <div class="divider-custom-line"></div>
                   <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                   <div class="divider-custom-line"></div>
                 </div>
-                <!-- Change Car Owner InputBox, Button -->
+                <!-- Change Report Pirate InputBox, Button -->
                 <div class="control-group text-center">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Car Number</label>
-                    <input class="form-control text-center" id="txtCarNoChangeCarOwner" type="text"
-                      placeholder="Car Number" required="required"
-                      data-validation-required-message="Please enter car number." />
+                    <label>Report Number</label>
+                    <input class="form-control text-center" id="txtReportNoChangeReportPirate" type="text"
+                      placeholder="Report Number" required="required"
+                      data-validation-required-message="Please enter report number." />
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="control-group text-center">
                   <div class="form-group floating-label-form-group controls mb-5 pb-2">
-                    <label>Car Owner</label>
-                    <input class="form-control text-center" id="txtOwnerChangeCarOwner" type="text"
-                      placeholder="Car Owner" required="required"
-                      data-validation-required-message="Please enter car owner." />
+                    <label>Report Pirate</label>
+                    <input class="form-control text-center" id="txtPirateChangeReportPirate" type="text"
+                      placeholder="Report Pirate" required="required"
+                      data-validation-required-message="Please enter report owner." />
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn-primary btn-xl" id="btnChangeCarOwner">Change Car
-                    Owner</button>
+                  <button class="btn btn-primary btn-xl" id="btnChangeReportPirate">Change Report
+                    Pirate</button>
                 </div>
                 <!-- Result Area -->
                 <div class="text-center">
-                  <p id="resultChangeCarOwner"></p>
+                  <p id="result"></p>
                 </div>
                 <button class="btn btn-primary" data-dismiss="modal">
                   <i class="fas fa-times fa-fw"></i>
@@ -396,7 +414,7 @@
       </div>
     </div>
   </div>
-  <!-- Portfolio Modal 6-->
+  <!-- Portfolio Modal 6 -->
   <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog"
     aria-labelledby="portfolioModal6Label" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -435,6 +453,60 @@
       </div>
     </div>
   </div>
+  <!-- Login Modal -->
+  <div class="portfolio-modal modal fade" id="loginModal" tabindex="-1" role="dialog"
+    aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+        <div class="modal-body text-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <!-- Portfolio Modal - Title-->
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"
+                  id="loginModalLabel">Login</h2>
+                <!-- Icon Divider-->
+                <div class="divider-custom">
+                  <div class="divider-custom-line"></div>
+                  <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                  <div class="divider-custom-line"></div>
+                </div>
+                <div class="control-group text-center">
+                  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                    <label>ID</label>
+                    <input class="form-control text-center" id="txtID" type="text"
+                      placeholder="ID" required="required"
+                      data-validation-required-message="Please enter admin id." />
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+                <div class="control-group text-center">
+                  <div class="form-group floating-label-form-group controls mb-5 pb-2">
+                    <label>Password</label>
+                    <input class="form-control text-center" id="txtPW" type="text"
+                      placeholder="Password" required="required"
+                      data-validation-required-message="Please enter admin password." />
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+                <div class="pb-5" id="alertLogin"></div>
+                <div class="form-group">
+                  <button class="btn btn-primary btn-xl" id="btnLogin">Login</button>
+                </div>
+                <button class="btn btn-primary" data-dismiss="modal">
+                  <i class="fas fa-times fa-fw"></i>
+                  Close Window
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Bootstrap core JS-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -444,88 +516,117 @@
   <script src="/javascripts/scripts.js"></script>
   <script>
     $(function () {
-      // Query All Cars
-      $('#btnQueryAllCars').click(async () => {
-        const result = await fetch('/api/cars');
+      // 모든 신고내역 조회
+      $('#btnQueryAllReports').click(async () => {
+        const result = await fetch('/api/reports');
         const json = await result.json();
-        let table = '<table class="table-car"><thead><tr><th>Key</th><th>Make</th><th>Model</th><th>Colour</th><th>Owner</th></tr></thead><tbody>';
+        let table = '<table class="table-report"><thead><tr><th>신고 ID</th><th>URL</th><th>홈페이지 이름</th><th>저작권 ID</th><th>게시자</th><th>신고자 Email</th><th>날짜</th><th>침해 형태</th><th>유사도</th><th>침해 여부</th></tr></thead><tbody>';
         for(let i = 0; i < json.length; i++) {
           table += '<tr>';
           table += `<td>${json[i].Key}</td>`;
-          table += `<td>${json[i].Record.make}</td>`;
-          table += `<td>${json[i].Record.model}</td>`;
-          table += `<td><font color="${json[i].Record.colour}">${json[i].Record.colour}</td>`;
-          table += `<td>${json[i].Record.owner}</td>`;
+          table += `<td>${json[i].Record.url}</td>`;
+          table += `<td>${json[i].Record.site}</td>`;
+          table += `<td>${json[i].Record.copyrightID}</td>`;
+          table += `<td>${json[i].Record.pirate}</td>`;
+          table += `<td>${json[i].Record.reporterEmail}</td>`;
+          table += `<td>${json[i].Record.date}</td>`;
+          table += `<td>${json[i].Record.form}</td>`;
+          table += `<td>${json[i].Record.similarity} %</td>`;
+          table += `<td>${json[i].Record.isPirated}</td>`;
           table += '</tr>';
         }
         table += '</tbody></table>'
-        $('#resultQueryAllCars').html(table);
+        $('#queryAllReports #result').html(table);
       });
       
       // Highlight row
-      $('.table-car tbody tr').hover(() => {
-        $('.table-car tbody tr').removeClass('active-row');
+      $('.table-report tbody tr').hover(() => {
+        $('.table-report tbody tr').removeClass('active-row');
         $(this).addClass('active-row');
       });
 
-      // Query Car
-      $('#btnQueryCar').click(async () => {
-        const carNo = $('#txtCarNoQueryCar').val();
+      // 신고 내역 조회
+      $('#queryReport #btnQuery').click(async () => {
+        const reportNo = $('#queryReport #txtReportNo').val();
 
-        if(!carNo) {
-          $('#resultQueryCar').html(`<font color="red">Please enter your car number.</font>`);
+        if(!reportNo) {
+          $('#queryReport #result').html(`<font color="red">Please enter your report number.</font>`);
           return;
         }
         
-        const result = await fetch(`/api/cars/${carNo}`);
+        const result = await fetch(`/api/reports/${reportNo}`);
 
         if(!result.ok) {
-          $('#resultQueryCar').html(`<font color="red">Unable to query car with <b>${carNo}</b>.</font>`);
+          $('#queryReport #result').html(`<font color="red">Unable to query report with <b>${reportNo}</b>.</font>`);
           return;
         }
 
         const json = await result.json();
         
-        let table = '<table class="table-car"><thead><tr><th>Make</th><th>Model</th><th>Colour</th><th>Owner</th></tr></thead><tbody>';
+        let table = '<table class="table-report"><thead><tr><th>신고 ID</th><th>URL</th><th>홈페이지 이름</th><th>저작권 ID</th><th>게시자</th><th>신고자 Email</th><th>날짜</th><th>침해 형태</th><th>유사도</th><th>침해 여부</th></tr></thead><tbody>';
         table += '<tr>';
-        table += `<td>${json.make}</td>`;
-        table += `<td>${json.model}</td>`;
-        table += `<td><font color="${json.colour}">${json.colour}</font></td>`;
-        table += `<td>${json.owner}</td>`;
+        table += `<td>${json.id}</td>`;
+        table += `<td>${json.url}</td>`;
+        table += `<td>${json.site}</td>`;
+        table += `<td>${json.copyrightID}</td>`;
+        table += `<td>${json.pirate}</td>`;
+        table += `<td>${json.reporterEmail}</td>`;
+        table += `<td>${json.date}</td>`;
+        table += `<td>${json.form}</td>`;
+        table += `<td>${json.similarity} %</td>`;
+        table += `<td>${json.isPirated}</td>`;
         table += '</tr>';
         table += '</tbody></table>'
-        $('#resultQueryCar').html(table);
-        // $('#resultQueryCar').html(`Unable to query car with ${carNo}`);
+        $('#queryReport #result').html(table);
+        // $('#resultQueryReport').html(`Unable to query report with ${reportNo}`);
       });
 
-      // Create Car
-      $('#btnCreateCar').click(async () => {
+      // Create Report
+      $('#createReport #btnCreate').click(async () => {
         const body = {
-          carNo: $('#txtCarNoCreateCar').val(),
-          make: $('#txtMakeCreateCar').val(),
-          model: $('#txtModelCreateCar').val(),
-          colour: $('#txtColourCreateCar').val(),
-          owner: $('#txtOwnerCreateCar').val()
+          reportNo: $('#createReport #txtReportNo').val(),
+          url: $('#createReport #txtURL').val(),
+          site: $('#createReport #txtSite').val(),
+          copyrightNo: $('#createReport #txtCopyrightNo').val(),
+          pirate: $('#createReport #txtPirate').val(),
+          form: $('#createReport #txtForm').val(),
+          email: $('#createReport #txtEmail').val()
         }
-        const result = await fetch('/api/cars', {
+        const result = await fetch('/api/reports', {
           method: 'POST',
           body: JSON.stringify(body),
           headers: { 'Content-Type': 'application/json' }
         });
         const json = await result.json();
-        $('#resultCreateCar').html(json.msg);
+        $('#createReport #result').html(json.msg);
       });
 
-      // Change Car Owner
-      $('#btnChangeCarOwner').click(async () => {
-        const carNo = $('#txtCarNoChangeCarOwner').val();
-        const result = await fetch(`/api/cars/${carNo}`, {
+      // Change Report Pirate
+      $('#btnChangeReportPirate').click(async () => {
+        const reportNo = $('#txtReportNoChangeReportPirate').val();
+        const result = await fetch(`/api/reports/${reportNo}`, {
           method: 'PUT',
-          body: JSON.stringify({ owner: $('#txtOwnerChangeCarOwner').val() }),
+          body: JSON.stringify({ owner: $('#txtPirateChangeReportPirate').val() }),
           headers: { 'Content-Type': 'application/json' }
         });
         const json = await result.json();
-        $('#resultChangeCarOwner').html(json.msg);
+        $('#resultChangeReportPirate').html(json.msg);
+      });
+
+      $('#btnLogin').click(async () => {
+        const id = $('#txtID').val();
+        const pw = $('#txtPW').val();
+        const result = await fetch(`/login`, {
+          method: 'POST',
+          body: JSON.stringify({ id: id, pw: pw }),
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const json = await result.json();
+        if(!json.ok) {
+          $('#alertLogin').html(`<font color="red">${json.msg}</font>`);
+          return;
+        }
+        location.replace('/');
       });
     });
   </script>
