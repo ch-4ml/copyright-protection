@@ -270,12 +270,12 @@ func (s *SmartContract) QueryReport(ctx contractapi.TransactionContextInterface,
 
 // 신고 - 침해여부 변경
 func (s *SmartContract) ChangeIsPirated(ctx contractapi.TransactionContextInterface, reportNo string, isPirated string) error {
-	key := "report" + reportNo
-	report, err := s.QueryReport(ctx, key)
+	report, err := s.QueryReport(ctx, reportNo)
 
 	if err != nil {
 		return err
 	}
+	key := "report" + reportNo
 
 	report.IsPirated = isPirated
 
