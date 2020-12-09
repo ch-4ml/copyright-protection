@@ -82,7 +82,7 @@
         </div>
         <!-- Portfolio Item 2-->
         <div class="col-md-6 col-lg-6 mb-5">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#queryCopyright">
+          <div class="portfolio-item mx-auto" id="btnQueryCopyright" data-toggle="modal" data-target="#queryCopyright">
             <div
               class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">저작권 조회</div>
@@ -92,7 +92,7 @@
         </div>
         <!-- Portfolio Item 3-->
         <div class="col-md-6 col-lg-6 mb-5">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#registerCopyright">
+          <div class="portfolio-item mx-auto" id="btnRegisterCopyright" data-toggle="modal" data-target="#registerCopyright">
             <div
               class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">저작권 등록</div>
@@ -102,7 +102,7 @@
         </div>
         <!-- Portfolio Item 4-->
         <div class="col-md-6 col-lg-6 mb-5 mb-lg-0">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#queryCopyrightsByAuthor">
+          <div class="portfolio-item mx-auto" id="btnQueryCopyrightsByAuthor" data-toggle="modal" data-target="#queryCopyrightsByAuthor">
             <div
               class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">원 저작자로 저작권 조회</div>
@@ -401,6 +401,10 @@
       $('#btnQueryAllCopyrights').click(async () => {
         const result = await fetch('/api/copyrights');
         const json = await result.json();
+        if(json.length === 0) {
+          $('#queryAllCopyrights #result').html(`<font color="red">Unable to query copyright.</font>`);
+          return;
+        }
         let table = '<table class="table-car"><thead><tr><th>ID</th><th>Title</th><th>Content Type</th><th>Author</th></tr></thead><tbody>';
         for(let i = 0; i < json.length; i++) {
           table += '<tr>';
@@ -421,23 +425,25 @@
       });
 
       // Query Copyright
+      $('#btnQueryCopyright').click(() => {
+        $('#queryCopyright #txtCopyrightNo').val('');
+        $('#queryCopyright #result').html('');
+      });
+
       $('#queryCopyright #btnQuery').click(async () => {
         const copyrightNo = $('#txtCopyrightNo').val();
-
         if(!copyrightNo) {
-          $('#queryCopyright #result').html(`<font color="red">Please enter your car number.</font>`);
+          $('#queryCopyright #result').html(`<font color="red">Please enter copyright number.</font>`);
           return;
         }
         
         const result = await fetch(`/api/copyrights/${copyrightNo}`);
-
         if(!result.ok) {
-          $('#queryCopyright #result').html(`<font color="red">Unable to query car with <b>${copyrightNo}</b>.</font>`);
+          $('#queryCopyright #result').html(`<font color="red">Unable to query copyright with <b>${copyrightNo}</b>.</font>`);
           return;
         }
 
         const json = await result.json();
-        
         let table = '<table class="table-car"><thead><tr><th>ID</th><th>Title</th><th>Content Type</th><th>Author</th></tr></thead><tbody>';
         table += '<tr>';
         table += `<td>${json.id}</td>`;
@@ -451,6 +457,14 @@
       });
 
       // Create Copyright
+      $('#btnRegisterCopyright').click(() => {
+        $('#registerCopyright #txtCopyrightNo').val('');
+        $('#registerCopyright #txtTitle').val('');
+        $('#registerCopyright #txtContentType').val('');
+        $('#registerCopyright #txtAuthor').val('');
+        $('#registerCopyright #result').html('');
+      });
+
       $('#registerCopyright #btnRegister').click(async () => {
         const body = {
           copyrightNo: $('#registerCopyright #txtCopyrightNo').val(),
@@ -468,10 +482,25 @@
       });
 
       // Query Copyrights By Author
+      $('#btnQueryCopyrightsByAuthor').click(() => {
+        $('#queryCopyrightsByAuthor #txtAuthor').val('');
+        $('#queryCopyrightsByAuthor #result').html('');
+      });
+
       $('#queryCopyrightsByAuthor #btnQuery').click(async () => {
         const author = $('#queryCopyrightsByAuthor #txtAuthor').val();
+        if(!author) {
+          $('#queryCopyrightsByAuthor #result').html(`<font color="red">Please enter author.</font>`);
+          return;
+        }
+
         const result = await fetch(`/api/copyrights/authors/${author}`);
         const json = await result.json();
+        if(json.length === 0) {
+          $('#queryCopyrightsByAuthor #result').html(`<font color="red">Unable to query copyright with <b>${author}</b>.</font>`);
+          return;
+        }
+
         let table = '<table class="table-car"><thead><tr><th>ID</th><th>Title</th><th>Content Type</th><th>Author</th></tr></thead><tbody>';
         for(let i = 0; i < json.length; i++) {
           table += '<tr>';

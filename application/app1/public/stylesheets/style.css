@@ -10312,3 +10312,7 @@ form .row:first-child .floating-label-form-group {
   font-weight: bold;
   color: #009879;
 }
+
+.table-report a {
+  z-index: 100;
+}

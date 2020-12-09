@@ -20,6 +20,7 @@
 </head>
 
 <body id="page-top">
+  <input type="hidden" id="account" value="<%= account %>">
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
     <div class="container">
@@ -90,7 +91,7 @@
           <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#queryReport">
             <div
               class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">Query Report</div>
+              <div class="portfolio-item-caption-content text-center text-white">신고 내역 조회</div>
             </div>
             <img class="img-fluid" src="/images/portfolio/cake.png" alt="" />
           </div>
@@ -106,11 +107,11 @@
           </div>
         </div>
         <!-- Portfolio Item 4-->
-        <div class="col-md-6 col-lg-6 mb-5 mb-lg-0">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
+        <div class="col-md-6 col-lg-6 mb-5">
+          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#queryReportsByCopyrightNo">
             <div
               class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">Change Report Pirate</div>
+              <div class="portfolio-item-caption-content text-center text-white">저작권 번호로 신고 내역 조회</div>
             </div>
             <img class="img-fluid" src="/images/portfolio/game.png" alt="" />
           </div>
@@ -155,10 +156,6 @@
                 <div class="text-center">
                   <p id="result"></p>
                 </div>
-                <button class="btn btn-primary" data-dismiss="modal">
-                  <i class="fas fa-times fa-fw"></i>
-                  Close Window
-                </button>
               </div>
             </div>
           </div>
@@ -198,16 +195,12 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn-primary btn-xl" id="btnQuery">조회</button>
+                  <button class="btn btn-primary btn-xl" id="btnQuery">조회하기</button>
                 </div>
                 <!-- Result Area -->
                 <div class="text-center">
                   <p id="result"></p>
                 </div>
-                <button class="btn btn-primary" data-dismiss="modal">
-                  <i class="fas fa-times fa-fw"></i>
-                  Close Window
-                </button>
               </div>
             </div>
           </div>
@@ -317,8 +310,8 @@
     </div>
   </div>
   <!-- Portfolio Modal 4-->
-  <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog"
-    aria-labelledby="portfolioModal4Label" aria-hidden="true">
+  <div class="portfolio-modal modal fade" id="queryReportsByCopyrightNo" tabindex="-1" role="dialog"
+    aria-labelledby="queryReportsByCopyrightNoLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -330,44 +323,30 @@
               <div class="col-lg-8">
                 <!-- Portfolio Modal - Title-->
                 <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"
-                  id="portfolioModal4Label">Change Report Pirate</h2>
+                  id="queryReportsByCopyrightNoLabel">저작권 번호로 신고 내역 조회</h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
                   <div class="divider-custom-line"></div>
                   <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                   <div class="divider-custom-line"></div>
                 </div>
-                <!-- Change Report Pirate InputBox, Button -->
+                <!-- 저작권 번호로 신고 내역 조회 InputBox, Button -->
                 <div class="control-group text-center">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Report Number</label>
-                    <input class="form-control text-center" id="txtReportNoChangeReportPirate" type="text"
-                      placeholder="Report Number" required="required"
-                      data-validation-required-message="Please enter report number." />
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>
-                <div class="control-group text-center">
-                  <div class="form-group floating-label-form-group controls mb-5 pb-2">
-                    <label>Report Pirate</label>
-                    <input class="form-control text-center" id="txtPirateChangeReportPirate" type="text"
-                      placeholder="Report Pirate" required="required"
-                      data-validation-required-message="Please enter report owner." />
+                    <label>저작권 번호</label>
+                    <input class="form-control text-center" id="txtCopyrightNo" type="text"
+                      placeholder="저작권 번호" required="required"
+                      data-validation-required-message="Please enter copyright number." />
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn-primary btn-xl" id="btnChangeReportPirate">Change Report
-                    Pirate</button>
+                  <button class="btn btn-primary btn-xl" id="btnQuery">조회하기</button>
                 </div>
                 <!-- Result Area -->
                 <div class="text-center">
                   <p id="result"></p>
                 </div>
-                <button class="btn btn-primary" data-dismiss="modal">
-                  <i class="fas fa-times fa-fw"></i>
-                  Close Window
-                </button>
               </div>
             </div>
           </div>
@@ -496,10 +475,6 @@
                 <div class="form-group">
                   <button class="btn btn-primary btn-xl" id="btnLogin">Login</button>
                 </div>
-                <button class="btn btn-primary" data-dismiss="modal">
-                  <i class="fas fa-times fa-fw"></i>
-                  Close Window
-                </button>
               </div>
             </div>
           </div>
@@ -520,9 +495,10 @@
       $('#btnQueryAllReports').click(async () => {
         const result = await fetch('/api/reports');
         const json = await result.json();
+        const account = $('#account').val();
         let table = '<table class="table-report"><thead><tr><th>신고 ID</th><th>URL</th><th>홈페이지 이름</th><th>저작권 ID</th><th>게시자</th><th>신고자 Email</th><th>날짜</th><th>침해 형태</th><th>유사도</th><th>침해 여부</th></tr></thead><tbody>';
         for(let i = 0; i < json.length; i++) {
-          table += '<tr>';
+          table += `<tr id="${i}">`;
           table += `<td>${json[i].Key}</td>`;
           table += `<td>${json[i].Record.url}</td>`;
           table += `<td>${json[i].Record.site}</td>`;
@@ -532,11 +508,30 @@
           table += `<td>${json[i].Record.date}</td>`;
           table += `<td>${json[i].Record.form}</td>`;
           table += `<td>${json[i].Record.similarity} %</td>`;
-          table += `<td>${json[i].Record.isPirated}</td>`;
+          if(account === 'admin' && json[i].Record.isPirated === 'Pending') {
+            table += `<td><a id="False" class="badge badge-danger">반려</a><a id="True" class="badge badge-success">승인</a></td>`;
+          } else table += `<td>${json[i].Record.isPirated}</td>`;
           table += '</tr>';
         }
         table += '</tbody></table>'
         $('#queryAllReports #result').html(table);
+
+        $('#queryAllReports table td a').click({ reports: json }, async (e) => {
+          const reports = e.data.reports;
+          const index = $(e.target).parent().parent().attr('id');
+          const isPirated = $(e.target).attr('id');
+          const data = {
+            reportID: reports[index].Key,
+            ...reports[index].Record,
+            isPirated: isPirated
+          }
+          const result = await fetch(`/api/reports`, {
+            method: 'PUT',
+            body: JSON.stringify({ ...data }),
+            headers: { 'Content-Type': 'application/json' }
+          });
+          const json = await result.json();
+        });
       });
       
       // Highlight row
@@ -601,16 +596,28 @@
         $('#createReport #result').html(json.msg);
       });
 
-      // Change Report Pirate
-      $('#btnChangeReportPirate').click(async () => {
-        const reportNo = $('#txtReportNoChangeReportPirate').val();
-        const result = await fetch(`/api/reports/${reportNo}`, {
-          method: 'PUT',
-          body: JSON.stringify({ owner: $('#txtPirateChangeReportPirate').val() }),
-          headers: { 'Content-Type': 'application/json' }
-        });
+      // 저작권 번호로 신고 내역 조회
+      $('#queryReportsByCopyrightNo #btnQuery').click(async () => {
+        const copyrightNo = $('#queryReportsByCopyrightNo #txtCopyrightNo').val();
+        const result = await fetch(`/api/reports/copyrights/${copyrightNo}`);
         const json = await result.json();
-        $('#resultChangeReportPirate').html(json.msg);
+        let table = '<table class="table-report"><thead><tr><th>신고 ID</th><th>URL</th><th>홈페이지 이름</th><th>저작권 ID</th><th>게시자</th><th>신고자 Email</th><th>날짜</th><th>침해 형태</th><th>유사도</th><th>침해 여부</th></tr></thead><tbody>';
+        for(let i = 0; i < json.length; i++) {
+          table += '<tr>';
+          table += `<td>${json[i].Key}</td>`;
+          table += `<td>${json[i].Record.url}</td>`;
+          table += `<td>${json[i].Record.site}</td>`;
+          table += `<td>${json[i].Record.copyrightID}</td>`;
+          table += `<td>${json[i].Record.pirate}</td>`;
+          table += `<td>${json[i].Record.reporterEmail}</td>`;
+          table += `<td>${json[i].Record.date}</td>`;
+          table += `<td>${json[i].Record.form}</td>`;
+          table += `<td>${json[i].Record.similarity} %</td>`;
+          table += `<td>${json[i].Record.isPirated}</td>`;
+          table += '</tr>';
+        }
+        table += '</tbody></table>';
+        $('#queryReportsByCopyrightNo #result').html(table);
       });
 
       $('#btnLogin').click(async () => {

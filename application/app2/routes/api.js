@@ -1,5 +1,6 @@
 'use strict';
 
+const { resolveSoa } = require('dns');
 const express = require('express');
 const router = express.Router();
 
@@ -17,20 +18,31 @@ router.get('/', function(req, res, next) {
 
 /* Copyrights */
 router.get('/copyrights', async (req, res) => {
-  const result = await callChaincode('queryAllCopyrights')
-  console.log(`result: ${result}`);
-  res.json(JSON.parse(result));
+  try {
+    const result = await callChaincode('queryAllCopyrights')
+    console.log(result);
+    res.json(JSON.parse(result));
+  } catch(err) {
+    res.status(400).send();
+  }
 });
 
 router.get('/copyrights/:copyrightNo', async (req, res) => {
-  const result = await callChaincode('queryCopyright', req.params.copyrightNo);
-  console.log(`result: ${result}`);
-  res.json(JSON.parse(result));
+  try {
+    const result = await callChaincode('queryCopyright', req.params.copyrightNo);
+    res.json(JSON.parse(result));
+  } catch(err) {
+    res.status(400).send();
+  }
 });
 
 router.get('/copyrights/authors/:author', async (req, res) => {
-  const result = await callChaincode('queryCopyrightsByAuthor', req.params.author);
-  res.json(JSON.parse(result));
+  try {
+    const result = await callChaincode('queryCopyrightsByAuthor', req.params.author);
+    res.json(JSON.parse(result));
+  } catch(err) {
+    res.status(400).send();
+  }
 });
 
 router.post('/copyrights', async (req, res) => {
@@ -77,7 +89,7 @@ async function callChaincode(fnName, ...args) {
 
   } catch(err) {
     console.error(`Failed to create transaction: ${err}`);
-    return 'error occurred!!!';
+    return { msg: `Error occurred: ${err}`, ok: false };
   }
 }
 

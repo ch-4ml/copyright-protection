@@ -63,7 +63,6 @@ type ReportQueryResult struct {
 // 저작권 데이터 등록
 func (s *SmartContract) RegistCopyright(ctx contractapi.TransactionContextInterface,
 	copyrightNo string, title string, contentType string, author string) error {
-	var err error
 
 	objectType := "copyright"
 	key := objectType + copyrightNo
@@ -78,19 +77,7 @@ func (s *SmartContract) RegistCopyright(ctx contractapi.TransactionContextInterf
 
 	copyrightAsBytes, _ := json.Marshal(copyright)
 
-	err = ctx.GetStub().PutState(key, copyrightAsBytes)
-	if err != nil {
-		return fmt.Errorf("Failed to put to world state. %s", err.Error())
-	}
-
-	index := "author~id"
-	authorIDIndexKey, err := ctx.GetStub().CreateCompositeKey(index, []string{copyright.Author, copyright.ID})
-	if err != nil {
-		return fmt.Errorf("Failed to create composite key. %s", err.Error())
-	}
-
-	value := []byte{0x00}
-	return ctx.GetStub().PutState(authorIDIndexKey, value)
+	return ctx.GetStub().PutState(key, copyrightAsBytes)
 }
 
 // 모든 저작권 데이터 조회
@@ -179,7 +166,6 @@ func (s *SmartContract) QueryCopyright(ctx contractapi.TransactionContextInterfa
 func (s *SmartContract) CreateReport(ctx contractapi.TransactionContextInterface,
 	reportNo string, url string, site string, copyrightNo string, pirate string,
 	reporterEmail string, date string, form string, similarity string, isPirated string) error {
-	var err error
 
 	reportID := "report" + reportNo
 	copyrightID := "copyright" + copyrightNo
@@ -199,19 +185,8 @@ func (s *SmartContract) CreateReport(ctx contractapi.TransactionContextInterface
 	}
 
 	reportAsBytes, _ := json.Marshal(report)
-	err = ctx.GetStub().PutState(reportID, reportAsBytes)
-	if err != nil {
-		return fmt.Errorf("Failed to put to world state. %s", err.Error())
-	}
 
-	index := "copyrightid~id"
-	copyrightIDIndexKey, err := ctx.GetStub().CreateCompositeKey(index, []string{report.CopyrightID, report.ID})
-	if err != nil {
-		return fmt.Errorf("Failed to create composite key. %s", err.Error())
-	}
-
-	value := []byte{0x00}
-	return ctx.GetStub().PutState(copyrightIDIndexKey, value)
+	return ctx.GetStub().PutState(reportID, reportAsBytes)
 }
 
 // 모든 신고정보 조회
@@ -243,16 +218,48 @@ func (s *SmartContract) QueryAllReports(ctx contractapi.TransactionContextInterf
 	return results, nil
 }
 
+// 모든 신고정보 조회
+func (s *SmartContract) QueryReportsByCopyrightNo(ctx contractapi.TransactionContextInterface, copyrightNo string) ([]ReportQueryResult, error) {
+
+	copyrightID := "copyright" + copyrightNo
+
+	queryString := fmt.Sprintf("{\"selector\":{\"docType\":\"report\", \"copyrightID\":\"%s\"}}", copyrightID)
+	resultsIterator, err := ctx.GetStub().GetQueryResult(queryString)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to get all reports data from world state. %s", err.Error())
+	}
+	defer resultsIterator.Close()
+
+	results := []ReportQueryResult{}
+
+	for resultsIterator.HasNext() {
+		queryResponse, err := resultsIterator.Next()
+
+		if err != nil {
+			return nil, err
+		}
+
+		report := new(Report)
+		_ = json.Unmarshal(queryResponse.Value, report)
+
+		queryResult := ReportQueryResult{Key: queryResponse.Key, Record: report}
+		results = append(results, queryResult)
+	}
+
+	return results, nil
+}
+
 // 신고정보 조회
-func (s *SmartContract) QueryReport(ctx contractapi.TransactionContextInterface, id string) (*Report, error) {
-	reportAsBytes, err := ctx.GetStub().GetState(id)
+func (s *SmartContract) QueryReport(ctx contractapi.TransactionContextInterface, reportNo string) (*Report, error) {
+	key := "report" + reportNo
+	reportAsBytes, err := ctx.GetStub().GetState(key)
 
 	if err != nil {
 		return nil, fmt.Errorf("Failed to read from world state. %s", err.Error())
 	}
 
 	if reportAsBytes == nil {
-		return nil, fmt.Errorf("%s does not exist", id)
+		return nil, fmt.Errorf("%s does not exist", key)
 	}
 
 	report := new(Report)
@@ -262,8 +269,9 @@ func (s *SmartContract) QueryReport(ctx contractapi.TransactionContextInterface,
 }
 
 // 신고 - 침해여부 변경
-func (s *SmartContract) ChangeReportIsPirated(ctx contractapi.TransactionContextInterface, reportID string, isPirated string) error {
-	report, err := s.QueryReport(ctx, reportID)
+func (s *SmartContract) ChangeIsPirated(ctx contractapi.TransactionContextInterface, reportNo string, isPirated string) error {
+	key := "report" + reportNo
+	report, err := s.QueryReport(ctx, key)
 
 	if err != nil {
 		return err
@@ -273,7 +281,7 @@ func (s *SmartContract) ChangeReportIsPirated(ctx contractapi.TransactionContext
 
 	reportAsBytes, _ := json.Marshal(report)
 
-	return ctx.GetStub().PutState(reportID, reportAsBytes)
+	return ctx.GetStub().PutState(key, reportAsBytes)
 }
 
 func main() {

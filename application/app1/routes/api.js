@@ -16,11 +16,24 @@ router.get('/', function(req, res, next) {
 });
 
 /* Reports */
+// 신고 내역 전체 조회
 router.get('/reports', async (req, res) => {
   const result = await callChaincode1('queryAllReports');
   res.json(JSON.parse(result));
 });
 
+// 신고 내역 조회
+router.get('/reports/copyrights/:copyrightNo', async (req, res) => {
+  const copyrightNo = req.params.copyrightNo;
+  try {
+    const result = await callChaincode1('queryReportsByCopyrightNo', copyrightNo);
+    res.json(JSON.parse(result));
+  } catch(err) {
+    res.status(400).send(null);
+  }
+});
+
+// 신고 내역 조회
 router.get('/reports/:reportNo', async (req, res) => {
   const reportNo = req.params.reportNo;
   try {
@@ -41,7 +54,7 @@ router.post('/reports', async (req, res) => {
               email, date, form, similarity, isPirated];
   console.log(args);
   try {
-    const result = await callChaincode1('createReport', ...args);
+    await callChaincode1('createReport', ...args);
     if(isPirated === 'True') {
       const copyrightStr = await callChaincode1('queryCopyright', copyrightNo);
       console.log(`copyrightStr: ${copyrightStr}`);
@@ -55,6 +68,28 @@ router.post('/reports', async (req, res) => {
   } catch(err) {
     console.log(err);
     res.status(500).send({ msg: 'Failed to submit transaction.'});
+  }
+});
+
+// 침해 여부 변경
+router.put('/reports', async(req, res) => {
+  const { reportID, url, site, copyrightID, pirate, reporterEmail, date, form, similarity, isPirated } = req.body;
+  const reportNo = reportID.replace('report', '');
+  const copyrightNo = copyrightID.replace('copyright', '');
+  try {
+    await callChaincode1('changeIsPirated', reportNo, isPirated);
+    if(isPirated === 'True') {
+      const copyrightStr = await callChaincode1('queryCopyright', copyrightNo);
+      console.log(copyrightStr);
+      const copyright = JSON.parse(copyrightStr);
+      console.log(copyright);
+      const args = [reportNo, url, site, copyright.title, copyright.contentType,
+              copyright.author, pirate, reporterEmail, date, form, similarity]
+      await callChaincode2('createReport', ...args);
+    }
+  } catch(err) {
+    console.log(err);
+    res.status(400).send(null);
   }
 });
 
@@ -96,7 +131,7 @@ function configCallChaincode (channel, ccName) {
       return result;
     } catch(err) {
       console.error(`Failed to create transaction: ${err}`);
-      return { msg: `Error occurred: ${err}` };
+      return { msg: `Error occurred: ${err}`};
     }
   }
 }
