@@ -346,7 +346,7 @@ function deployCC() {
 function deployCC2() {
 
   scripts/deployCC2.sh $CHANNEL_NAME $CC_NAME $CC_SRC_PATH $CC_SRC_LANGUAGE $CC_VERSION $CC_SEQUENCE $CC_INIT_FCN $CC_END_POLICY $CC_COLL_CONFIG $CLI_DELAY $MAX_RETRY $VERBOSE
-
+  
   if [ $? -ne 0 ]; then
     fatalln "Deploying chaincode failed"
   fi
@@ -359,7 +359,6 @@ function deployCC2() {
 function networkDown() {
   # stop org3 containers also in addition to org1 and org2, in case we were running sample to add org3
   docker-compose -f $COMPOSE_FILE_BASE -f $COMPOSE_FILE_COUCH -f $COMPOSE_FILE_CA down --volumes --remove-orphans
-  docker-compose -f $COMPOSE_FILE_COUCH_ORG3 -f $COMPOSE_FILE_ORG3 down --volumes --remove-orphans
   # Don't remove the generated artifacts -- note, the ledgers are always removed
   if [ "$MODE" != "restart" ]; then
     # Bring down the network, deleting the volumes
@@ -409,10 +408,6 @@ COMPOSE_FILE_BASE=docker/docker-compose-test-net.yaml
 COMPOSE_FILE_COUCH=docker/docker-compose-couch.yaml
 # certificate authorities compose file
 COMPOSE_FILE_CA=docker/docker-compose-ca.yaml
-# use this as the docker compose couch file for org3
-COMPOSE_FILE_COUCH_ORG3=addOrg3/docker/docker-compose-couch-org3.yaml
-# use this as the default docker-compose yaml definition for org3
-COMPOSE_FILE_ORG3=addOrg3/docker/docker-compose-org3.yaml
 #
 # use go as the default language for chaincode
 CC_SRC_LANGUAGE="go"

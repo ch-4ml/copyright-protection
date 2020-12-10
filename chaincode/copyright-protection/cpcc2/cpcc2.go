@@ -105,15 +105,16 @@ func (s *SmartContract) QueryAllReports(ctx contractapi.TransactionContextInterf
 }
 
 // 신고정보 조회
-func (s *SmartContract) QueryReport(ctx contractapi.TransactionContextInterface, id string) (*Report, error) {
-	reportAsBytes, err := ctx.GetStub().GetState(id)
+func (s *SmartContract) QueryReport(ctx contractapi.TransactionContextInterface, reportNo string) (*Report, error) {
+	key := "report" + reportNo
+	reportAsBytes, err := ctx.GetStub().GetState(key)
 
 	if err != nil {
 		return nil, fmt.Errorf("Failed to read from world state. %s", err.Error())
 	}
 
 	if reportAsBytes == nil {
-		return nil, fmt.Errorf("%s does not exist", id)
+		return nil, fmt.Errorf("%s does not exist", key)
 	}
 
 	report := new(Report)
@@ -122,19 +123,20 @@ func (s *SmartContract) QueryReport(ctx contractapi.TransactionContextInterface,
 	return report, nil
 }
 
-// 신고 - 침해여부 변경
-func (s *SmartContract) ChangeReportStatus(ctx contractapi.TransactionContextInterface, reportID string, status string) error {
-	report, err := s.QueryReport(ctx, reportID)
+// 신고 - 수사 상태 변경
+func (s *SmartContract) ChangeReportStatus(ctx contractapi.TransactionContextInterface, reportNo string, status string) error {
+	report, err := s.QueryReport(ctx, reportNo)
 
 	if err != nil {
 		return err
 	}
 
 	report.Status = status
-
 	reportAsBytes, _ := json.Marshal(report)
 
-	return ctx.GetStub().PutState(reportID, reportAsBytes)
+	key := "report" + reportNo
+
+	return ctx.GetStub().PutState(key, reportAsBytes)
 }
 
 func main() {

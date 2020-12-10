@@ -1,13 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var apiRouter = require('./routes/api');
+const indexRouter = require('./routes/index');
+const apiRouter = require('./routes/api');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -18,6 +20,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'keyboard cat',   // session encryption
+  resave: false,            
+  saveUninitialized: true,  
+  store: new FileStore()
+}));
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);

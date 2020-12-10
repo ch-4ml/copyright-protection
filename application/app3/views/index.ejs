@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Copyright Protection - 한국저작권보호원 </title>
+  <title>Copyright Protection - 문화체육관광부 특수사법경찰 </title>
   <!-- Favicon-->
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
   <!-- Font Awesome icons (free version)-->
@@ -24,7 +24,7 @@
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Copyright Protection</a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Copyright Protection - 문화체육관광부 특수사법경찰</a>
       <button
         class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded"
         type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
@@ -35,19 +35,18 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <!-- <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Portfolio</a></li> -->
-            <% if (account === 'admin') { %>
-              <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/logout">Logout</a></li>
-            <% } else { %>
-              <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="modal" data-target="#loginModal">Login</a></li>
-            <% } %>
-            
-            <!-- <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li> -->
+          <!-- <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li> -->
+          <% if (account === 'admin') { %>
+            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/logout">Logout</a></li>
+          <% } else { %>
+            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="modal" data-target="#loginModal">Login</a></li>
+          <% } %>
         </ul>
       </div>
     </div>
   </nav>
   <!-- Masthead-->
-  <header class="masthead bg-primary text-white text-center">
+  <header class="masthead bg-danger text-white text-center">
     <div class="container d-flex align-items-center flex-column">
       <!-- Masthead Avatar Image-->
       <img class="masthead-avatar mb-5" src="/images/avataaars.svg" alt="" />
@@ -60,7 +59,7 @@
         <div class="divider-custom-line"></div>
       </div>
       <!-- Masthead Subheading-->
-      <p class="masthead-subheading font-weight-light mb-0">한국저작권보호원 앱</p>
+      <p class="masthead-subheading font-weight-light mb-0">문화체육관광부 특수사법경찰 앱</p>
     </div>
   </header>
   <!-- Portfolio Section-->
@@ -83,7 +82,7 @@
               class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">신고 내역 전체 조회</div>
             </div>
-            <img class="img-fluid" src="/images/portfolio/cabin.png" alt="" />
+            <img class="img-fluid" src="/images/portfolio/safe.png" alt="" />
           </div>
         </div>
         <!-- Portfolio Item 2-->
@@ -93,27 +92,7 @@
               class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">신고 내역 조회</div>
             </div>
-            <img class="img-fluid" src="/images/portfolio/cake.png" alt="" />
-          </div>
-        </div>
-        <!-- Portfolio Item 3-->
-        <div class="col-md-6 col-lg-6 mb-5">
-          <div class="portfolio-item mx-auto" id="btnCreateReport" data-toggle="modal" data-target="#createReport">
-            <div
-              class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">저작권 침해 신고</div>
-            </div>
-            <img class="img-fluid" src="/images/portfolio/circus.png" alt="" />
-          </div>
-        </div>
-        <!-- Portfolio Item 4-->
-        <div class="col-md-6 col-lg-6 mb-5">
-          <div class="portfolio-item mx-auto" id="btnQueryReportsByCopyrightNo"data-toggle="modal" data-target="#queryReportsByCopyrightNo">
-            <div
-              class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">저작권 번호로 신고 내역 조회</div>
-            </div>
-            <img class="img-fluid" src="/images/portfolio/game.png" alt="" />
+            <img class="img-fluid" src="/images/portfolio/submarine.png" alt="" />
           </div>
         </div>
       </div>
@@ -209,230 +188,6 @@
       </div>
     </div>
   </div>
-  <!-- Portfolio Modal 3-->
-  <div class="portfolio-modal modal fade" id="createReport" tabindex="-1" role="dialog"
-    aria-labelledby="createReportLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content">
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true"><i class="fas fa-times"></i></span>
-        </button>
-        <div class="modal-body text-center">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-8">
-                <!-- Portfolio Modal - Title-->
-                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"
-                  id="createReportLabel">저작권 침해 신고</h2>
-                <!-- Icon Divider-->
-                <div class="divider-custom">
-                  <div class="divider-custom-line"></div>
-                  <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                  <div class="divider-custom-line"></div>
-                </div>
-                <!-- Create Report InputBox, Button -->
-                <div class="row">
-                  <div class="control-group text-center col-6">
-                    <div class="form-group floating-label-form-group controls mb-2 pb-2">
-                      <label>신고 번호</label>
-                      <input class="form-control text-center" id="txtReportNo" type="text"
-                        placeholder="신고 번호" required="required"
-                        data-validation-required-message="신고 번호를 입력해주세요." />
-                      <p class="help-block text-danger"></p>
-                    </div>
-                  </div>
-                  <div class="control-group text-center col-6">
-                    <div class="form-group floating-label-form-group controls mb-2 pb-2">
-                      <label>URL</label>
-                      <input class="form-control text-center" id="txtURL" type="text"
-                        placeholder="URL" required="required"
-                        data-validation-required-message="웹사이트 URL을 입력해주세요." />
-                      <p class="help-block text-danger"></p>
-                    </div>
-                  </div>
-                  <div class="control-group text-center col-6">
-                    <div class="form-group floating-label-form-group controls mb-2 pb-2">
-                      <label>웹사이트 이름</label>
-                      <input class="form-control text-center" id="txtSite" type="text"
-                        placeholder="웹사이트 이름" required="required"
-                        data-validation-required-message="웹사이트 이름을 입력해주세요." />
-                      <p class="help-block text-danger"></p>
-                    </div>
-                  </div>
-                  <div class="control-group text-center col-6">
-                    <div class="form-group floating-label-form-group controls mb-2 pb-2">
-                      <label>저작권 번호</label>
-                      <input class="form-control text-center" id="txtCopyrightNo" type="text"
-                        placeholder="저작권 번호" required="required"
-                        data-validation-required-message="저작권을 선택해주세요." />
-                      <p class="help-block text-danger"></p>
-                    </div>
-                  </div>
-                  <div class="control-group text-center col-6">
-                    <div class="form-group floating-label-form-group controls mb-2 pb-2">
-                      <label>업로드한 유저 정보</label>
-                      <input class="form-control text-center" id="txtPirate" type="text"
-                        placeholder="업로드한 유저 정보" required="required"
-                        data-validation-required-message="침해된 저작물을 업로드한 유저의 정보를 입력해주세요. (아이디, 닉네임 등)" />
-                      <p class="help-block text-danger"></p>
-                    </div>
-                  </div>
-                  <div class="control-group text-center col-6">
-                    <div class="form-group floating-label-form-group controls mb-2 pb-2">
-                      <label>저작권 침해 형태</label>
-                      <input class="form-control text-center" id="txtForm" type="text"
-                        placeholder="저작권 침해 형태" required="required"
-                        data-validation-required-message="저작권 침해 형태를 입력해주세요." />
-                      <p class="help-block text-danger"></p>
-                    </div>
-                  </div>
-                  <div class="control-group text-center col-12 mb-5">
-                    <div class="form-group floating-label-form-group controls mb-2 pb-2">
-                      <label>신고자 이메일</label>
-                      <input class="form-control text-center" id="txtEmail" type="email"
-                        placeholder="신고자 이메일" required="required"
-                        data-validation-required-message="신고자 이메일을 입력해주세요." />
-                      <p class="help-block text-danger"></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <button class="btn btn-primary btn-xl" id="btnCreate">신고하기</button>
-                </div>
-                <!-- Result Area -->
-                <div class="text-center">
-                  <p id="result"></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Portfolio Modal 4-->
-  <div class="portfolio-modal modal fade" id="queryReportsByCopyrightNo" tabindex="-1" role="dialog"
-    aria-labelledby="queryReportsByCopyrightNoLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content">
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true"><i class="fas fa-times"></i></span>
-        </button>
-        <div class="modal-body text-center">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-12">
-                <!-- Portfolio Modal - Title-->
-                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"
-                  id="queryReportsByCopyrightNoLabel">저작권 번호로 신고 내역 조회</h2>
-                <!-- Icon Divider-->
-                <div class="divider-custom">
-                  <div class="divider-custom-line"></div>
-                  <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                  <div class="divider-custom-line"></div>
-                </div>
-                <!-- 저작권 번호로 신고 내역 조회 InputBox, Button -->
-                <div class="control-group text-center">
-                  <div class="form-group floating-label-form-group controls mb-5 pb-2">
-                    <label>저작권 번호</label>
-                    <input class="form-control text-center" id="txtCopyrightNo" type="text"
-                      placeholder="저작권 번호" required="required"
-                      data-validation-required-message="Please enter copyright number." />
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <button class="btn btn-primary btn-xl" id="btnQuery">조회하기</button>
-                </div>
-                <!-- Result Area -->
-                <div class="text-center">
-                  <p id="result"></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Portfolio Modal 5-->
-  <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog"
-    aria-labelledby="portfolioModal5Label" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content">
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true"><i class="fas fa-times"></i></span>
-        </button>
-        <div class="modal-body text-center">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-8">
-                <!-- Portfolio Modal - Title-->
-                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"
-                  id="portfolioModal5Label">Locked Safe</h2>
-                <!-- Icon Divider-->
-                <div class="divider-custom">
-                  <div class="divider-custom-line"></div>
-                  <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                  <div class="divider-custom-line"></div>
-                </div>
-                <!-- Portfolio Modal - Image-->
-                <img class="img-fluid rounded mb-5" src="/images/portfolio/safe.png" alt="" />
-                <!-- Portfolio Modal - Text-->
-                <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque
-                  assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam
-                  velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.
-                </p>
-                <button class="btn btn-primary" data-dismiss="modal">
-                  <i class="fas fa-times fa-fw"></i>
-                  Close Window
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Portfolio Modal 6 -->
-  <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog"
-    aria-labelledby="portfolioModal6Label" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content">
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true"><i class="fas fa-times"></i></span>
-        </button>
-        <div class="modal-body text-center">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-8">
-                <!-- Portfolio Modal - Title-->
-                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"
-                  id="portfolioModal6Label">Submarine</h2>
-                <!-- Icon Divider-->
-                <div class="divider-custom">
-                  <div class="divider-custom-line"></div>
-                  <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                  <div class="divider-custom-line"></div>
-                </div>
-                <!-- Portfolio Modal - Image-->
-                <img class="img-fluid rounded mb-5" src="/images/portfolio/submarine.png" alt="" />
-                <!-- Portfolio Modal - Text-->
-                <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque
-                  assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam
-                  velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.
-                </p>
-                <button class="btn btn-primary" data-dismiss="modal">
-                  <i class="fas fa-times fa-fw"></i>
-                  Close Window
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <!-- Login Modal -->
   <div class="portfolio-modal modal fade" id="loginModal" tabindex="-1" role="dialog"
     aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -497,35 +252,38 @@
         const result = await fetch('/api/reports');
         const json = await result.json();
         const account = $('#account').val();
-        let table = '<table class="table-report"><thead><tr><th>신고 ID</th><th>URL</th><th>홈페이지 이름</th><th>저작권 ID</th><th>게시자</th><th>신고자 Email</th><th>날짜</th><th>침해 형태</th><th>유사도</th><th>침해 여부</th></tr></thead><tbody>';
+        let table = '<table class="table-report"><thead><tr><th>신고 ID</th><th>URL</th><th>홈페이지 이름</th><th>저작물 이름</th><th>저작물 유형</th><th>저작권자 이름</th><th>게시자</th><th>신고자 Email</th><th>날짜</th><th>침해 형태</th><th>유사도</th><th>침해 여부</th></tr></thead><tbody>';
         for(let i = 0; i < json.length; i++) {
           table += `<tr id="${i}">`;
           table += `<td>${json[i].Key}</td>`;
           table += `<td>${json[i].Record.url}</td>`;
           table += `<td>${json[i].Record.site}</td>`;
-          table += `<td>${json[i].Record.copyrightID}</td>`;
+          table += `<td>${json[i].Record.title}</td>`;
+          table += `<td>${json[i].Record.contentType}</td>`;
+          table += `<td>${json[i].Record.author}</td>`;
           table += `<td>${json[i].Record.pirate}</td>`;
           table += `<td>${json[i].Record.reporterEmail}</td>`;
           table += `<td>${json[i].Record.date}</td>`;
           table += `<td>${json[i].Record.form}</td>`;
           table += `<td>${json[i].Record.similarity} %</td>`;
-          if(account === 'admin' && json[i].Record.isPirated === 'Pending') {
-            table += `<td><a id="False" class="badge badge-danger">반려</a><a id="True" class="badge badge-success">승인</a></td>`;
-          } else table += `<td>${json[i].Record.isPirated}</td>`;
+          if(account === 'admin') {
+            json[i].Record.status === 'Pending' ? table += `<td><a id="Proceeding" class="badge badge-danger">수사 착수</a></td>` : 
+            json[i].Record.status === 'Proceeding' ? table += `<td><a id="Completed" class="badge badge-success">수사 완료</a></td>` : 
+            table += `<td>${json[i].Record.status}</td>`
+          } else table += `<td>${json[i].Record.status}</td>`;
           table += '</tr>';
         }
         table += '</tbody></table>'
         $('#queryAllReports #result').html(table);
 
-        $('#queryAllReports table td a').click({ reports: json }, async (e) => {
+        $(document).on('click', '#queryAllReports table td a', { reports: json }, async (e) => {
           $('#queryAllReports #message').html('결과를 기다리는 중입니다...');
           const reports = e.data.reports;
           const index = $(e.target).parent().parent().attr('id');
-          const isPirated = $(e.target).attr('id');
+          const status = $(e.target).attr('id');
           const data = {
             reportID: reports[index].Key,
-            ...reports[index].Record,
-            isPirated: isPirated
+            status: status
           }
           const result = await fetch(`/api/reports`, {
             method: 'PUT',
@@ -534,7 +292,9 @@
           });
           const json = await result.json();
           $('#queryAllReports #message').html(json.msg);
-          $(e.target).parent().html(json.data);
+          const td = json.data === 'Proceeding'
+          ? `<a id="Completed" class="badge badge-success">수사 완료</a>` : json.data;
+          $(e.target).parent().html(td);
         });
       });
       
@@ -552,6 +312,7 @@
 
       $('#queryReport #btnQuery').click(async () => {
         const reportNo = $('#queryReport #txtReportNo').val();
+        const account = $('#account').val();
 
         if(!reportNo) {
           $('#queryReport #result').html(`<font color="red">Please enter your report number.</font>`);
@@ -567,84 +328,31 @@
 
         const json = await result.json();
         
-        let table = '<table class="table-report"><thead><tr><th>신고 ID</th><th>URL</th><th>홈페이지 이름</th><th>저작권 ID</th><th>게시자</th><th>신고자 Email</th><th>날짜</th><th>침해 형태</th><th>유사도</th><th>침해 여부</th></tr></thead><tbody>';
+        let table = '<table class="table-report"><thead><tr><th>신고 ID</th><th>URL</th><th>홈페이지 이름</th><th>저작물 이름</th><th>저작물 유형</th><th>저작권자 이름</th><th>게시자</th><th>신고자 Email</th><th>날짜</th><th>침해 형태</th><th>유사도</th><th>침해 여부</th></tr></thead><tbody>';
         table += '<tr>';
         table += `<td>${json.id}</td>`;
         table += `<td>${json.url}</td>`;
         table += `<td>${json.site}</td>`;
-        table += `<td>${json.copyrightID}</td>`;
+        table += `<td>${json.title}</td>`;
+        table += `<td>${json.contentType}</td>`;
+        table += `<td>${json.author}</td>`;
         table += `<td>${json.pirate}</td>`;
         table += `<td>${json.reporterEmail}</td>`;
         table += `<td>${json.date}</td>`;
         table += `<td>${json.form}</td>`;
         table += `<td>${json.similarity} %</td>`;
-        table += `<td>${json.isPirated}</td>`;
+        if(account === 'admin') {
+          json.status === 'Pending' ? table += `<td><a id="Proceeding" class="badge badge-danger">수사 착수</a></td>` : 
+          json.status === 'Proceeding' ? table += `<td><a id="Completed" class="badge badge-success">수사 완료</a></td>` : 
+          table += `<td>${json.status}</td>`
+        } else table += `<td>${json.status}</td>`;
         table += '</tr>';
         table += '</tbody></table>'
         $('#queryReport #result').html(table);
         // $('#resultQueryReport').html(`Unable to query report with ${reportNo}`);
       });
 
-      // Create Report
-      $('#btnCreateReport').click(() => {
-        $('#createReport #txtReportNo').val('');
-        $('#createReport #txtURL').val('');
-        $('#createReport #txtSite').val('');
-        $('#createReport #txtCopyrightNo').val('');
-        $('#createReport #txtPirate').val('');
-        $('#createReport #txtForm').val('');
-        $('#createReport #txtEmail').val('');
-        $('#createReport #result').html('');
-      });
-
-      $('#createReport #btnCreate').click(async () => {
-        const body = {
-          reportNo: $('#createReport #txtReportNo').val(),
-          url: $('#createReport #txtURL').val(),
-          site: $('#createReport #txtSite').val(),
-          copyrightNo: $('#createReport #txtCopyrightNo').val(),
-          pirate: $('#createReport #txtPirate').val(),
-          form: $('#createReport #txtForm').val(),
-          email: $('#createReport #txtEmail').val()
-        }
-        const result = await fetch('/api/reports', {
-          method: 'POST',
-          body: JSON.stringify(body),
-          headers: { 'Content-Type': 'application/json' }
-        });
-        const json = await result.json();
-        $('#createReport #result').html(json.msg);
-      });
-
-      // 저작권 번호로 신고 내역 조회
-      $('#btnQueryReportsByCopyrightNo').click(() => {
-        $('#queryReportsByCopyrightNo #txtCopyrightNo').val('');
-        $('#queryReportsByCopyrightNo #result').html('');
-      });
-
-      $('#queryReportsByCopyrightNo #btnQuery').click(async () => {
-        const copyrightNo = $('#queryReportsByCopyrightNo #txtCopyrightNo').val();
-        const result = await fetch(`/api/reports/copyrights/${copyrightNo}`);
-        const json = await result.json();
-        let table = '<table class="table-report"><thead><tr><th>신고 ID</th><th>URL</th><th>홈페이지 이름</th><th>저작권 ID</th><th>게시자</th><th>신고자 Email</th><th>날짜</th><th>침해 형태</th><th>유사도</th><th>침해 여부</th></tr></thead><tbody>';
-        for(let i = 0; i < json.length; i++) {
-          table += '<tr>';
-          table += `<td>${json[i].Key}</td>`;
-          table += `<td>${json[i].Record.url}</td>`;
-          table += `<td>${json[i].Record.site}</td>`;
-          table += `<td>${json[i].Record.copyrightID}</td>`;
-          table += `<td>${json[i].Record.pirate}</td>`;
-          table += `<td>${json[i].Record.reporterEmail}</td>`;
-          table += `<td>${json[i].Record.date}</td>`;
-          table += `<td>${json[i].Record.form}</td>`;
-          table += `<td>${json[i].Record.similarity} %</td>`;
-          table += `<td>${json[i].Record.isPirated}</td>`;
-          table += '</tr>';
-        }
-        table += '</tbody></table>';
-        $('#queryReportsByCopyrightNo #result').html(table);
-      });
-
+      // 로그인
       $('#btnLogin').click(async () => {
         const id = $('#txtID').val();
         const pw = $('#txtPW').val();
