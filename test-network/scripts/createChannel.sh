@@ -43,7 +43,7 @@ createChannelTx2() {
 }
 
 
-createAncorPeerTx() {
+createAnchorPeerTx() {
 
 	for orgmsp in Org1MSP Org2MSP; do
 
@@ -58,7 +58,7 @@ createAncorPeerTx() {
 	done
 }
 
-createAncorPeerTx2() {
+createAnchorPeerTx2() {
 
 	for orgmsp in Org1MSP Org3MSP; do
 
@@ -150,7 +150,7 @@ createChannelTx
 ## Create anchorpeertx
 infoln "Generating anchor peer update transactions"
 CHANNEL_NAME="mychannel"
-createAncorPeerTx
+createAnchorPeerTx
 
 ## Create another channeltx
 CHANNEL_NAME="mychannel2"
@@ -160,7 +160,7 @@ createChannelTx2
 # Create anchorpeertx
 infoln "Generating anchor peer update transactions"
 CHANNEL_NAME="mychannel2"
-createAncorPeerTx2
+createAnchorPeerTx2
 
 FABRIC_CFG_PATH=$PWD/../config/
 

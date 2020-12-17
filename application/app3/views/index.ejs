@@ -252,7 +252,7 @@
         const result = await fetch('/api/reports');
         const json = await result.json();
         const account = $('#account').val();
-        let table = '<table class="table-report"><thead><tr><th>신고 ID</th><th>URL</th><th>홈페이지 이름</th><th>저작물 이름</th><th>저작물 유형</th><th>저작권자 이름</th><th>게시자</th><th>신고자 Email</th><th>날짜</th><th>침해 형태</th><th>유사도</th><th>침해 여부</th></tr></thead><tbody>';
+        let table = '<table class="table-report"><thead><tr><th>신고 ID</th><th>URL</th><th>홈페이지 이름</th><th>저작물 이름</th><th>저작물 유형</th><th>저작권자 이름</th><th>게시자</th><th>신고자 Email</th><th>날짜</th><th>침해 형태</th><th>유사도</th><th>수사 상태</th></tr></thead><tbody>';
         for(let i = 0; i < json.length; i++) {
           table += `<tr id="${i}">`;
           table += `<td>${json[i].Key}</td>`;
@@ -328,7 +328,7 @@
 
         const json = await result.json();
         
-        let table = '<table class="table-report"><thead><tr><th>신고 ID</th><th>URL</th><th>홈페이지 이름</th><th>저작물 이름</th><th>저작물 유형</th><th>저작권자 이름</th><th>게시자</th><th>신고자 Email</th><th>날짜</th><th>침해 형태</th><th>유사도</th><th>침해 여부</th></tr></thead><tbody>';
+        let table = '<table class="table-report"><thead><tr><th>신고 ID</th><th>URL</th><th>홈페이지 이름</th><th>저작물 이름</th><th>저작물 유형</th><th>저작권자 이름</th><th>게시자</th><th>신고자 Email</th><th>날짜</th><th>침해 형태</th><th>유사도</th><th>수사 상태</th></tr></thead><tbody>';
         table += '<tr>';
         table += `<td>${json.id}</td>`;
         table += `<td>${json.url}</td>`;
